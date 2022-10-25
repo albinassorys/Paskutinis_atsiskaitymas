@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <div class="signup-form">
+        <h3>Registracija</h3><br/>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">Naudotojo vardas</label>
+                <input name="username" type="text" id="username">
+                <small id="usernameHelp">Iki 150 simbolių.</small>
+            </div><br>
+            <div class="form-group">
+                <label for="exampleInputEmail1">El. paštas</label>
+                <input name="email" type="email" id="exampleInputEmail1">
+                <small id="emailHelp">Nurodykite galiojantį el. pašto adresą. </small>
+            </div><br>
+            <div>
+                <label for="password">Slaptažodis</label>
+                <input name="password" type="password" id="password">
+                <small id="pwdHelp">Ne trumpesnis nei 8 simbolių. Slaptažodžio negali sudaryti vien skaičiai</small>
+            </div>
+            <div><br>
+                <label for="password2">Pakartokite slaptažodį</label>
+                <input name="password2" type="password" id="password2">
+            </div><br>
+            <button type="submit">Registruotis</button>
+        </form><br>
+        <p>Jeigu užsiregistravote anksčiau, <a href="{% url 'login' %}" class="signup-link"><strong>prisijunkite.</strong></a></p>
+    </div>
+
+{% endblock %}
+
