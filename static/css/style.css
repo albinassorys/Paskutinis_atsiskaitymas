@@ -76,7 +76,7 @@ body {
   background: #ccc;
 }
 
-img {width: 270px; height: 200px; border-top-left-radius: 2px; border-top-right-radius: 2px; object-fit: cover}
+img {width: 270px; height: 200px; border-top-left-radius: 2px; border-top-right-radius: 2px; object-fit: contain}
 
 .cards {display: flex; margin: 0rem 1rem 0 1rem; flex-wrap: wrap; justify-content: flex-start;}
 

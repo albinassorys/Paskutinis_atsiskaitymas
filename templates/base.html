@@ -13,18 +13,25 @@
 <body>
 
     <div class="sidenav">
-        <a href="#">Sign Up</a>
+        {% if user.is_authenticated %}
+        <a href="#">Logout</a>
         <hr>
         <a href="#">Add Note</a>
         <a href="#">Add Category</a>
+        {% else %}
+        <a href="#">Sign Up</a>
+        <a href="#">Login</a>
+        {% endif %}
         <a href="#">About</a>
         <hr>
-        <a href="#">Category 1</a>
-        <a href="#">Category 2</a>
+        {% for category in categories %}
+        <a href="#">{{category.name}}</a>
+        {% endfor %}
     </div>
 
     <div class="main">
 
+        {% if user.is_authenticated %}
         <div class="topnav">
           <div class="search-container">
             <form action="/action_page.php">
@@ -33,6 +40,16 @@
             </form>
           </div>
         </div>
+        {%else%}
+        <div class="topnav">
+          <div class="search-container">
+            <form action="/action_page.php">
+              <input type="text" placeholder="Please log in to search" name="search">
+
+            </form>
+          </div>
+        </div>
+        {% endif %}
 
         {% block content %}
         {% endblock %}
