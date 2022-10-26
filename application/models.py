@@ -7,12 +7,12 @@ class Category(models.Model):
     name = models.CharField('Name', max_length=20, blank=False, null=False, help_text='Choose category name',
                             default=f'Category')
 
-    owner = User.objects.get()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     ordering = ['name']
 
     def __str__(self):
-        return f'{self.name}'
+        return f'{self.name} {self.user}'
 
     class Meta:
         verbose_name = 'Category'
@@ -28,8 +28,7 @@ class Notes(models.Model):
 
     image = models.ImageField('Image', upload_to='', null=True, blank=True, help_text='Upload an optional image')
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
-    # user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    user = User.objects.get()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField('Date', auto_now_add=True)
 
     ordering = ['date']
