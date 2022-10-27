@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="form">
+
+    <h2>Edit note</h2>
+
+
+</div>
+
+
+<div class="cards">
+
+
+
+              <form method="post" action="{% url 'edit_note' note.id %}">
+                  {% csrf_token %}
+                  {% if form.notes.errors %}
+                  {{ form.notes.errors }}
+                  {% endif %}
+
+                  <p>{{form.image}}</p>
+                  <H2>{{form.title}}</H2>
+        <div>{{form.body}}</div>
+        <p>Category:</p>
+        <p>{{form.category}}</p>
+        <div>
+        <input type="submit" value="Update"/></div>
+
+        <input type="hidden" name="next" value="{{ next }}"/>
+        </form>
+
+</div>
+
+
+{% endblock %}

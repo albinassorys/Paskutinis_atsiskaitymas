@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Notes</title>
+</head>
+<body>
+
+    <div class="sidenav">
+        {% if user.is_authenticated %}
+        <a href="{% url 'logout' %}">Logout</a>
+        <hr>
+        <a href="{% url 'add_note' %}">Add Note</a>
+        <a href="{% url 'add_category' %}">Add Category</a>
+        {% else %}
+        <a href="{% url 'sign_up' %}">Sign Up</a>
+        <a href="{% url 'login' %}">Login</a>
+        {% endif %}
+        <a href="{% url 'main' %}">Home</a>
+        <hr>
+        {% for category in categories %}
+        <a href="{% url 'category_filter' category.id %}">{{category.name}}</a>
+        {% endfor %}
+    </div>
+
+    <div class="main">
+
+        {% if user.is_authenticated %}
+        <div class="topnav">
+          <div class="search-container">
+            <form action="{% url 'search' %}" method="get">
+              <input type="text" placeholder="Search..." name="query">
+              <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+          </div>
+        </div>
+        {%else%}
+        <div class="topnav">
+          <div class="search-container">
+            <form>
+              <input type="text" placeholder="Please log in to search" name="search">
+
+            </form>
+          </div>
+        </div>
+        {% endif %}
+
+        {% block content %}
+        {% endblock %}
+
+        </div>
+
+<div class="messages">
+    {% if messages %}
+    {% for message in messages %}
+    <div>
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    <br>
+</div>
+
+</body>
+</html>

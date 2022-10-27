@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="form">
+
+  {% if form.errors %}
+    <p>Connection error, try again!</p>
+  {% endif %}
+
+  {% if next %}
+    <p>Account inaccessible, you need to log in or sign up.</p>
+  {% endif %}
+
+
+  <div class="signup-form">
+  <h2>Log in</h2><br/>
+  <form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+    <table>
+      <tr>
+        <td>User name: </td>
+        <td>{{ form.username }}</td>
+      </tr>
+      <tr>
+        <td>Paswword: </td>
+        <td>{{ form.password }}</td>
+      </tr>
+    </table><br>
+    <input type="submit" value="Log in" />
+    <input type="hidden" name="next" value="{{ next }}" />
+  </form>
+  </div>
+
+</div>
+{% endblock %}

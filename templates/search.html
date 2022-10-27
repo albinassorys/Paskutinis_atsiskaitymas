@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="form">
+
+    <h2>Search "{{ query }}" matches:</h2>
+
+</div>
+
+{% if search_results %}
+
+<div class="cards">
+
+{% for card in search_results %}
+    {% if card.image %}
+    <div class="card">
+
+
+
+              <img src="/media/{{ card.image }}">
+              <H2>{{card.title}}</H2>
+              <div class="note-body">{{card.body}}</div><br>
+
+              <div class="option-block">
+              <a href="{% url 'edit_note' card.id %}" class="option">Edit</a>
+              <a href="{% url 'delete_note' card.id %}" class="option">Delete</a>
+              </div>
+
+
+    </div>
+    {% else %}
+
+    <div class="card">
+
+        <H2>{{card.title}}</H2>
+        <div class="note-body-sans-img">{{card.body}}</div><br>
+
+        <div class="option-block">
+        <a href="{% url 'edit_note' card.id %}" class="option">Edit</a>
+        <a href="{% url 'delete_note' card.id %}" class="option">Delete</a>
+        </div>
+
+    </div>
+    {% endif %}
+
+{% endfor %}
+
+{% else %}
+    <p>No results found</p>
+{% endif %}
+
+</div>
+
+{% endblock %}
