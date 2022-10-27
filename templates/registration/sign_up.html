@@ -2,33 +2,52 @@
 {% load static %}
 {% block content %}
 
-    <div class="signup-form">
-        <h3>Registracija</h3><br/>
-        <form method="post">
-            {% csrf_token %}
-            <div class="form-group">
-                <label for="username">Naudotojo vardas</label>
-                <input name="username" type="text" id="username">
-                <small id="usernameHelp">Iki 150 simbolių.</small>
-            </div><br>
-            <div class="form-group">
-                <label for="exampleInputEmail1">El. paštas</label>
-                <input name="email" type="email" id="exampleInputEmail1">
-                <small id="emailHelp">Nurodykite galiojantį el. pašto adresą. </small>
-            </div><br>
-            <div>
-                <label for="password">Slaptažodis</label>
-                <input name="password" type="password" id="password">
-                <small id="pwdHelp">Ne trumpesnis nei 8 simbolių. Slaptažodžio negali sudaryti vien skaičiai</small>
-            </div>
-            <div><br>
-                <label for="password2">Pakartokite slaptažodį</label>
-                <input name="password2" type="password" id="password2">
-            </div><br>
-            <button type="submit">Registruotis</button>
-        </form><br>
-        <p>Jeigu užsiregistravote anksčiau, <a href="{% url 'login' %}" class="signup-link"><strong>prisijunkite.</strong></a></p>
-    </div>
+<div class="form">
+
+    <h2>Sign up</h2>
+
+    {% for field in form %}
+      <p>
+        {{ field.label_tag }}<br>
+        {{ field }}
+        {% if field.help_text %}
+          <small style="color: grey">{{ field.help_text }}</small>
+        {% endif %}
+        {% for error in field.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+      </p>
+    {% endfor %}
+    <button type="submit">Sign up</button>
+
+<!--<form action="{% url 'sign_up' %}" method="post" enctype="multipart/form-data">-->
+<!--    {% csrf_token %}-->
+<!--    {{ form }}-->
+<!--    <input type="submit" value="Submit">-->
+<!--</form>-->
+
+</div>
+<!--    <div class="signup-form">-->
+<!--        <h2>Sign up</h2><br/>-->
+<!--        <form action="{% url 'sign_up' %}" method="post" enctype="multipart/form-data">-->
+<!--            {% csrf_token %}-->
+<!--            <div class="form-group">-->
+<!--                <label for="username">Naudotojo vardas</label>-->
+<!--                <input name="username" type="text" id="username">-->
+<!--                <small id="usernameHelp">Iki 150 simbolių.</small>-->
+<!--            </div><br>-->
+<!--            <div>-->
+<!--                <label for="password">Slaptažodis</label>-->
+<!--                <input name="password" type="password" id="password">-->
+<!--                <small id="pwdHelp">Ne trumpesnis nei 8 simbolių. Slaptažodžio negali sudaryti vien skaičiai</small>-->
+<!--            </div>-->
+<!--            <div><br>-->
+<!--                <label for="password2">Pakartokite slaptažodį</label>-->
+<!--                <input name="password2" type="password" id="password2">-->
+<!--            </div><br>-->
+<!--            <input type="submit" value="Submit">-->
+<!--        </form>-->
+<!--    </div>-->
 
 {% endblock %}
 

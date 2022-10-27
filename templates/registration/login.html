@@ -5,29 +5,29 @@
 <div class="form">
 
   {% if form.errors %}
-    <p>Prisijungimo klaida, bandykite dar kartą!</p>
+    <p>Connection error, try again!</p>
   {% endif %}
 
   {% if next %}
-    <p>Paskyra nepasiekiama. Reikia prisijungti.</p>
+    <p>Account inaccessible, you need to log in or sign up.</p>
   {% endif %}
 
 
   <div class="signup-form">
-  <h3>Prisijungimas</h3><br/>
+  <h2>Log in</h2><br/>
   <form method="post" action="{% url 'login' %}">
     {% csrf_token %}
     <table>
       <tr>
-        <td>Vartotojas: </td>
+        <td>User name: </td>
         <td>{{ form.username }}</td>
       </tr>
       <tr>
-        <td>Slaptažodis: </td>
+        <td>Paswword: </td>
         <td>{{ form.password }}</td>
       </tr>
     </table><br>
-    <input type="submit" value="Prisijungti" />
+    <input type="submit" value="Log in" />
     <input type="hidden" name="next" value="{{ next }}" />
   </form>
   </div>

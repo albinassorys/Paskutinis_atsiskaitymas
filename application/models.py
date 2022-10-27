@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.shortcuts import reverse
 
 
 class Category(models.Model):
@@ -12,7 +13,10 @@ class Category(models.Model):
     ordering = ['name']
 
     def __str__(self):
-        return f'{self.name} {self.user}'
+        return f'{self.name}'
+
+    def get_absolute_url(self):
+        return reverse('category', args=[str(self.id)])
 
     class Meta:
         verbose_name = 'Category'
@@ -39,3 +43,6 @@ class Notes(models.Model):
     class Meta:
         verbose_name = 'Note'
         verbose_name_plural = 'Notes'
+
+    def get_absolute_url(self):
+        return reverse('note', args=[str(self.id)])

@@ -4,18 +4,26 @@ from .models import Category, Notes, User
 
 
 class SignUpForm(UserCreationForm):
+
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2']
+        fields = ['username', 'password1', 'password2']
 
 
-class CreateNote(forms.ModelForm):
+class AddNoteForm(forms.ModelForm):
+
+    user = User.username
+    category = Category.user
+
     class Meta:
         model = Notes
-        fields = ['title', 'image', 'body']
+        fields = ['title', 'image', 'body', 'category', 'user']
 
 
-class CreateCategory(forms.ModelForm):
+class AddCategoryForm(forms.ModelForm):
+
+    user = User.username
+
     class Meta:
         model = Category
-        fields = ['name']
+        fields = ['name', 'user']

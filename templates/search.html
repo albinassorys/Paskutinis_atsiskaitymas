@@ -2,9 +2,17 @@
 {% load static %}
 {% block content %}
 
+<div class="form">
+
+    <h2>Search "{{ query }}" matches:</h2>
+
+</div>
+
+{% if search_results %}
+
 <div class="cards">
 
-{% for card in cards %}
+{% for card in search_results %}
     {% if card.image %}
     <div class="card">
 
@@ -15,8 +23,8 @@
               <div class="note-body">{{card.body}}</div><br>
 
               <div class="option-block">
-              <a href="{% url 'edit_note' %}" class="option">Edit</a>
-              <a href="{% url 'delete_note' %}" class="option">Delete</a>
+              <div class="option">Edit</div>
+              <div class="option">Delete</div>
               </div>
 
 
@@ -29,14 +37,18 @@
         <div class="note-body-sans-img">{{card.body}}</div><br>
 
         <div class="option-block">
-        <a href="{% url 'edit_note' %}" class="option">Edit</a>
-        <a href="{% url 'delete_note' %}" class="option">Delete</a>
+        <div class="option">Edit</div>
+        <div class="option">Delete</div>
         </div>
 
     </div>
     {% endif %}
 
 {% endfor %}
+
+{% else %}
+    <p>No results found</p>
+{% endif %}
 
 </div>
 
