@@ -19,10 +19,8 @@ class AddNoteForm(forms.ModelForm):
         model = Notes
         fields = ['title', 'image', 'body', 'category', 'user']
 
-class EditNoteForm(forms.ModelForm):
 
-    user = User.username
-    category = Category.user
+class EditNoteForm(forms.ModelForm):
 
     class Meta:
         model = Notes

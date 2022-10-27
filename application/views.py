@@ -26,16 +26,18 @@ def category_filter(request, id):
 
     return render(request, 'category_filter.html', context=context)
 
-def delete_note(request, id):
 
+def delete_note(request, id):
     Notes.objects.filter(id=id).delete()
 
     return redirect('main')
+
 
 def search(request):
     query = request.GET.get('query')
     search_results = Notes.objects.filter(Q(title__icontains=query) | Q(body__icontains=query))
     return render(request, 'search.html', {'search_results': search_results, 'query': query})
+
 
 def sign_up(request):
     if request.method == 'POST':
@@ -48,9 +50,9 @@ def sign_up(request):
         form = SignUpForm()
     return render(request, 'registration/sign_up.html', context={'form': form})
 
+
 @login_required()
 def add_note(request):
-
     if request.method == 'POST':
         request_data = request.POST.copy()
         request_data['user'] = request.user.id
@@ -65,26 +67,25 @@ def add_note(request):
 
     return render(request, 'note_form.html', context={'form': form})
 
+
 def edit_note(request, id):
     note = Notes.objects.get(id=id)
 
-    if request.method != 'POST':
-        form = EditNoteForm(instance=note)
-
-    else:
-        form = EditNoteForm(instance=note, data=request.POST)
+    if request.method == 'POST':
+        form = EditNoteForm(request.POST, instance=note)
         if form.is_valid():
             form.save()
-            return redirect('main', id=id)
-
+            return redirect('main')
+    else:
+        form = EditNoteForm(instance=note)
 
     context = {'note': note, 'main': main, 'form': form}
 
     return render(request, 'edit_note.html', context)
 
+
 @login_required()
 def add_category(request):
-
     if request.method == 'POST':
         request_data = request.POST.copy()
         request_data['user'] = request.user.id
@@ -98,4 +99,3 @@ def add_category(request):
         form = AddCategoryForm()
 
     return render(request, 'category_form.html', context={'form': form})
-
